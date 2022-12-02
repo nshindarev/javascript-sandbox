@@ -66,14 +66,14 @@ console.log(casio.getDiscount(.30))
 
 const _person = {
     firstName: "Jamilia",
-    cars: ["Ferrari"],
-    toString: function(){
-        console.log(`Name: ${this.firstName}`)
-        this.cars.forEach((car)=>{
-            console.log(`Name: ${this.firstName} drives ${car}`)
+    cars: ["Ferrari", "Tesla"],
+    toString: ()=>{
+        console.log(`Name: ${this.firstName}`);
+        const that = this;
+        this.cars.forEach(car=>{
+            console.log(`Name: ${that.firstName} drives ${car}`)
         })
     },
-
     deleteMe: true
 }
 
