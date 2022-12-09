@@ -14,18 +14,6 @@ const sumFuncPro = myNumber => {
     return ++myNumber;
 }
 
-/**
- *  if get rid of return statement =>
- *  change {} curly brackets to () parenteses
- */
-
- const getJsonObject = brand => ({
-	brand: brand,
-	email: "${brand}@gmail.com"
-})
-
-const brand = getJsonObject("lol");
-console.log(brand);
 
 /**
 * if get rid of return statement =>
@@ -36,7 +24,6 @@ const getJsonObjectWithoutReturn = brand => ({
 	brand: brand,
 	email: "${brand}@gmail.com"
 })
-
 
 
 // function default parameter
