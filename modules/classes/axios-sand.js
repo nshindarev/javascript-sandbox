@@ -10,8 +10,8 @@ import axios from 'axios';
 // convert into async-await:
 const fetchJoke = async(url) => {
     try{
-        const res = await axios.get(url)
-        console.log(res.data)
+        const res = await axios.get(url);
+        console.log(res.data);
     } catch (err) {
         console.log(err)
     }

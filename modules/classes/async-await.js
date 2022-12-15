@@ -1,67 +1,46 @@
-const customers = new Promise((resolve,reject) => {
-    return Promise.resolve().then(() => {
-        let i=0;
-        while(i<2_000_000) {i++}
-        resolve([
-            {name: "Jamilia", id: 1},
-            {name: "Bob",     id: 2}
-        ])
-    })
-})
+console.log("sync #1");
 
-const addresses = new Promise((resolve,reject) => {
-    return Promise.resolve().then(() => {
-        let i=0;
-        while(i<1_000_000) {i++}
-        resolve([
-            {customerId: 1, address: "London"},
-            {customerId: 2, address: "USA"},
-        ])
-    })
-})
+const fetchCustomers = () => new Promise((resolve, reject) => {
+  setTimeout(() => resolve([
+    { name: "Jamilia", id: 1 },
+    { name: "Bob", id: 2 }
+  ]), 1_000);
+});
 
+const fetchAddresses = () => new Promise((resolve, reject) => {
+  return Promise.resolve().then(() => {
+		setTimeout(() => resolve([
+      { customerId: 1, address: "London" },
+      { customerId: 2, address: "USA" }
+    ]), 10_000);
+  });
+});
 
-/*
+console.log("sync #2");
+
 const fetchData = () => {
-    customers.then(c => {
-        addresses.then(a => {
-            console.log(c);
-            console.log(a);
-        }).catch(err =>{
-            console.log(err);
-        })
-    }).catch(err =>{
-        console.log(err);
-    })
-} */
+	console.log('1', Date.now());
 
+	const customersPromise = fetchCustomers().then((customers) => {
+  	console.log("##### customers are ready #####", Date.now());
+    console.log(customers);
+    return customers;
+  });
+  
+	console.log('2', Date.now());
 
-//async allows to await the promise
-const fetchData = async () => {
-        // const c = await customers;
-        // const a = await addresses;
+	const addressesPromise = fetchAddresses().then((addresses) => {
+    console.log("##### addresses are ready #####", Date.now());
+    console.log(addresses);
+    return addresses;
+  });
 
-        // used when everything or nothing
-        Promise.all([customers,addresses]).then((values) => {
-            const [c,a] = values;
-            console.log (a);
-            console.log (c);
-        }).catch(ex => {
-            console.log(ex);
-        })
-}
+	console.log('3', Date.now());
 
-//async allows to await the promise
-const fetchDataAwaitAll = async () => {
-    try{
-        const values = await Promise.all([customers,addresses]);
-        const [c,a] = values;
-        
-        console.log(a);
-        console.log(c);
-    } catch (error) {
-        console.log(error);
-    }
-}
+	Promise.all([customersPromise, addressesPromise]).then((both) => {
+  	console.log("##### both are ready #####", Date.now());
+    console.log(both);
+  });
+};
 
-fetchDataAwaitAll()
+fetchData();
